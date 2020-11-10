@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Instagram</title>
+  </head>
+  <body>
+    <h1>HI</h1>
+    <form method="post">
+
+      <h1>WEATHER REPORT</h1>
+
+      <div class="form-group">
+        <label for="place">Username</label>
+        <input type="text" class="form-control" id="username" aria-describedby="username"placeholder="Enter place name" name="username">
+        <label for="place">Password</label>
+        <input type="text" class="form-control" id="password" aria-describedby="password"placeholder="Enter place name" name="password">
+        <label for="postnumber">Post Number</label>
+        <input type="text" class="form-control" id="postnumber" aria-describedby="postnumber"placeholder="Enter post number" name="postnumber">
+      </div>
+
+      <button type="submit" class="btn btn-primary">Submit</button>
+
+
+
+    <div class="weather-widget">
+      <p>Username:</p>
+      <p>{{report['username']}}</p>
+      <p>Password:</p>
+      <p>{{report['password']}}</p>
+    </div>
+
+  </form>
+  </body>
+</html>

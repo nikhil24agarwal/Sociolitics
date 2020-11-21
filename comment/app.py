@@ -8,6 +8,9 @@ import pandas as pd
 from pandas import json_normalize
 import pprint
 import googleapiclient.discovery
+import demoji
+
+demoji.download_codes()
 
 app = Flask(__name__)
 Bootstrap(app)
@@ -16,10 +19,17 @@ Bootstrap(app)
 
 @app.route('/', methods=['GET','POST'])
 def index():
-    if request.method=='POST':
-        return render_template('home.html',report = report)
-    else:
-        return render_template('login.html')
+    return render_template('login.html')
+
+
+@app.route('/home', methods=['GET','POST'])
+def home():
+    return render_template('home.html')
+
+
+@app.route('/graph', methods=['GET','POST'])
+def graph():
+    return render_template('graph.html')
 
 
 
@@ -115,7 +125,13 @@ def youtube():
         for i in range(len(cmnt['items'])):
             comments_list.append(cmnt['items'][i]['snippet']['topLevelComment']['snippet']['textOriginal'])
 
-        print(comments_list)
+
+
+        comments_list_with_emoji_removal=[]                               #replacing emojis with empty string and storing the comments into a list
+        for i in comments_list:
+            comments_list_with_emoji_removal.append(demoji.replace(i, ""))
+
+        print(comments_list_with_emoji_removal)
 
         return render_template('youtube.html')
     else:

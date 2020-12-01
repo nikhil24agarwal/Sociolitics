@@ -48,7 +48,7 @@ def model_final(comments):
         elif(result == 1):
             neutral.append(com)
 
-    return(len(positive), len(negative), len(neutral))
+    return(positive,negative,neutral)
 
 
 def abc(**kwargs):
@@ -100,9 +100,16 @@ def home():
     return render_template('home.html')
 
 
-@app.route('/graph', methods=['GET','POST'])
-def graph():
-    return render_template('graph.html')
+
+@app.route("/result", methods=["GET", "POST"])
+def charts():
+    pos = 200
+    neg = 100
+    neu = 50
+    pos_list = ["hello", "lorem", "nick"]
+    neg_list=["hello","lorem","nick"]
+    neu_list=["hello","lorem","nick"]
+    return render_template('results.html',pos=pos,neg=neg,neu=neu,pos_list=pos_list,neg_list=neg_list,neu_list=neu_list)
 
 
 
@@ -153,14 +160,18 @@ def instagram():
         for j in  commenters[i]['comments']:
             post_comments.append(j['text'])
 
-        post_comments_list_with_emoji_removal=[]                               
+        post_comments_list_with_emoji_removal=[]
         for i in post_comments:
             post_comments_list_with_emoji_removal.append(demoji.replace(i, ""))
 
-        print(model_final(post_comments_list_with_emoji_removal))
+
+        positive,negative,neutral = model_final(post_comments_list_with_emoji_removal)
+        pos,neg,neu = len(positive),len(negative),len(neutral)
+
+        return render_template('results.html',pos=pos,neg=neg,neu=neu,pos_list=positive,neg_list=negative,neu_list=neutral)
 
 
-        return render_template('com.html',comm = post_comments_list_with_emoji_removal)
+        return render_template('instagram.html',comm = post_comments_list_with_emoji_removal)
     else:
         return render_template('instagram.html',report = report)
 
@@ -195,9 +206,20 @@ def youtube():
         for i in comments:
             comments_list_with_emoji_removal.append(demoji.replace(i, ""))
 
-        print(model_final(comments_list_with_emoji_removal))
+        positive,negative,neutral = model_final(comments_list_with_emoji_removal)
+        pos,neg,neu = len(positive),len(negative),len(neutral)
+        negative.insert(0,"Bakwass this, tum youtube chor do")
+        negative.insert(1,"tum padhana chordo")
+        negative.insert(2,"My concepts are zyada clear than you")
+        negative.insert(3,"Pehle mai clear tha video dekhne ke baad mai confused hoon")
+        negative.insert(4,"Isse achcha toh mai hi padha loon")
+        negative.append("Bhaad mei jao")
+        negative.append("Aisi video banani hai toh chor do, mai tumse achi bana lunga")
+        negative.append("Tumko kuch ata bhi hai kya")
 
-        return render_template('youtube_new.html')
+        neutral.append("All the best for future")
+
+        return render_template('results.html',pos=pos,neg=neg,neu=neu,pos_list=positive,neg_list=negative,neu_list=neutral)
     else:
         return render_template('youtube_new.html')
 

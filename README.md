@@ -1,1 +1,2 @@
 # Sociolitics
+We all know now a days most of our time is utiised over social media only where we have freedom to speak anything on an posts via comments. So what we tried to do is if one paste link of their post of youtube and instagram then he or she can see the comments of post classified bt the polarity(positive, negative or neutral) of it in form on 2 charts(dougnut ad pie ) and also can read the choosen message wheather its positive, negative or neutral. 
